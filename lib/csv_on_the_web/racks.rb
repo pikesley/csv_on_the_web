@@ -11,6 +11,7 @@ module CsvOnTheWeb
       conneg.ignore_contents_of 'public'
       conneg.provide [
         :html,
+        :csv,
         :json
       ]
     end
