@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'sinatra/link_header'
 require 'tilt/erubis'
 require 'json'
 require 'csv'

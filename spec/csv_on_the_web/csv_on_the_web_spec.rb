@@ -11,17 +11,6 @@ module CsvOnTheWeb
       expect(last_response.body).to match /How does CSV On The Web work\?/
     end
 
-    it 'serves JSON' do
-      get '/', nil, JSON_HEADERS
-      expect(last_response).to be_ok
-      expect(last_response.header['Content-type']).to eq 'application/json'
-      expect(JSON.parse last_response.body).to eq (
-        {
-          'app' => 'CsvOnTheWeb'
-        }
-      )
-    end
-
     context 'CSV' do
       it 'serves planting CSV' do
         get '/data/planting', nil, CSV_HEADERS
@@ -94,7 +83,13 @@ orange fizz,Lycopersicon esculentum,cordon
         )
       end
 
-      it 'gets the metadata headers'
+      it 'gets the metadata headers' do
+        get '/data/tomatoes.csv'
+        expect(last_response).to be_ok
+        expect(last_response.header['Link']).to eq (
+          "<example.org/data/tomatoes>; rel=\"describedby\"; type=\"application/csvm+json\""
+        )
+      end
     end
   end
 end
