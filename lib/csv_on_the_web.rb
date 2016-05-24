@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'tilt/erubis'
 require 'json'
 require 'csv'
+require 'tilt/kramdown'
 
 require_relative 'csv_on_the_web/racks'
 require_relative 'csv_on_the_web/helpers'

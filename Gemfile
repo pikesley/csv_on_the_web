@@ -8,6 +8,7 @@ gem 'rake'
 gem 'puma'
 gem 'compass'
 gem 'bootstrap-sass'
+gem 'kramdown'
 
 group :test do
   gem 'rspec'
