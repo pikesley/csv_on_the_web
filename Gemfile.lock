@@ -119,8 +119,6 @@ GEM
       slop (~> 3.4)
     puma (3.4.0)
     rack (1.6.4)
-    rack-conneg (0.1.5)
-      rack (>= 1.0)
     rack-google-analytics (1.2.0)
       actionpack
       activesupport
@@ -192,7 +190,6 @@ DEPENDENCIES
   jasmine
   pry
   puma
-  rack-conneg
   rack-google-analytics
   rake
   rspec

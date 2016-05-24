@@ -15,21 +15,25 @@ module CsvOnTheWeb
     get '/' do
       headers 'Vary' => 'Accept'
 
-      respond_to do |wants|
-        wants.html do
+      request.accept.each do |type|
+        case type.to_s
+
+        when 'text/html'
           @content = '<h1>Hello from CsvOnTheWeb</h1>'
           @title = 'CsvOnTheWeb'
-          erb :index, layout: :default
-        end
+          halt erb :index, layout: :default
 
-        wants.json do
-          {
-            app: 'CsvOnTheWeb'
-          }.to_json
-        end
+        when 'application/json'
+          headers 'Content-type' => type.to_s
+          halt (
+            {
+              app: 'CsvOnTheWeb'
+            }.to_json
+          )
 
-        wants.csv do
-          [
+        when 'text/csv'
+          headers 'Content-type' => type.to_s
+          halt [
             'Hello',
             'from',
             'CSV'
@@ -39,9 +43,16 @@ module CsvOnTheWeb
     end
 
     get '/data/:dataset' do
-      respond_to do |wants|
-        wants.csv do
-          File.read "data/csv/#{params[:dataset]}.csv"
+      request.accept.each do |type|
+        case type.to_s
+
+        when 'text/csv'
+          headers 'Content-type' => type.to_s
+          halt File.read "data/csv/#{params[:dataset]}.csv"
+
+        when 'application/csvm+json'
+          headers 'Content-type' => type.to_s
+          halt File.read "data/csv/#{params[:dataset]}.csv-metadata.json"
         end
       end
     end

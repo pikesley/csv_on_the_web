@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'sinatra'
-gem 'rack-conneg'
 gem 'rack-google-analytics'
 gem 'rake'
 gem 'puma'

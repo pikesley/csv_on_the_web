@@ -1,17 +1,20 @@
 module CsvOnTheWeb
+  HTML_HEADERS = { 'HTTP_ACCEPT' => 'text/html' }
   JSON_HEADERS = { 'HTTP_ACCEPT' => 'application/json' }
   CSV_HEADERS = { 'HTTP_ACCEPT' => 'text/csv' }
 
   describe App do
     it 'says hello' do
-      get '/'
+      get '/', nil, HTML_HEADERS
       expect(last_response).to be_ok
+      expect(last_response.header['Content-type']).to match /text\/html/
       expect(last_response.body).to match /Hello from CsvOnTheWeb/
     end
 
     it 'serves JSON' do
       get '/', nil, JSON_HEADERS
       expect(last_response).to be_ok
+      expect(last_response.header['Content-type']).to eq 'application/json'
       expect(JSON.parse last_response.body).to eq (
         {
           'app' => 'CsvOnTheWeb'
@@ -23,6 +26,7 @@ module CsvOnTheWeb
       it 'serves planting CSV' do
         get '/data/planting', nil, CSV_HEADERS
         expect(last_response).to be_ok
+        expect(last_response.header['Content-type']).to eq 'text/csv'
         expect(last_response.body).to eq (
         """plot,tomato
 0,ildi
@@ -49,6 +53,30 @@ golden sunrise,Solanum lycopersicum,cordon
 sungold,Lycopersicon esculentum,cordon
 orange fizz,Lycopersicon esculentum,cordon
 """
+        )
+      end
+    end
+
+    context 'CSVOTW metadata' do
+      it 'serves the JSON' do
+        get '/data/planting', nil, { 'HTTP_ACCEPT' => 'application/csvm+json' }
+        expect(last_response).to be_ok
+        expect(last_response.header['Content-type']).to eq 'application/csvm+json'
+        expect(JSON.parse last_response.body).to eq (
+          {
+            "@context" => "http://www.w3.org/ns/csvw",
+            "url" => "planting.csv",
+            "tableSchema" => {
+              "columns" => [
+                {
+                  "titles" => "plot"
+                },
+                {
+                  "titles" => "tomato"
+                }
+              ]
+            }
+          }
         )
       end
     end

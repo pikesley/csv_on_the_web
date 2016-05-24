@@ -1,0 +1,17 @@
+{
+  "@context": "http://www.w3.org/ns/csvw",
+  "url": "tomatoes.csv",
+  "tableSchema": {
+    "columns": [
+      {
+        "titles": "common name"
+      },
+      {
+        "titles": "botanical name"
+      },
+      {
+        "titles": "type"
+      }
+    ]
+  }
+}
