@@ -16,32 +16,9 @@ module CsvOnTheWeb
 
     get '/' do
       headers 'Vary' => 'Accept'
-
-      request.accept.each do |type|
-        case type.to_s
-
-        when 'text/html'
-          @content = '<h1>Hello from CsvOnTheWeb</h1>'
-          @title = 'CsvOnTheWeb'
-          halt erb :index, layout: :default
-
-        when 'application/json'
-          headers 'Content-type' => type.to_s
-          halt (
-            {
-              app: 'CsvOnTheWeb'
-            }.to_json
-          )
-
-        when 'text/csv'
-          headers 'Content-type' => type.to_s
-          halt [
-            'Hello',
-            'from',
-            'CSV'
-          ].to_csv
-        end
-      end
+      @content = '<h1>Hello from CsvOnTheWeb</h1>'
+      @title = 'CsvOnTheWeb'
+      halt erb :index, layout: :default
     end
 
     get '/data/:dataset.?:format?' do
