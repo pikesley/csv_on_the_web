@@ -22,16 +22,12 @@ module CsvOnTheWeb
     end
 
     get '/data/:dataset.?:format?' do
-      extensions = {
-        'csv' => 'text/csv'
-      }
-      type = request.accept.first.to_s
-      if params[:format]
-        type = extensions[params[:format]]
-      end
-
+      type = determine_type
       case type
         when 'text/csv'
+          link "#{request.env['HTTP_HOST']}/data/#{params[:dataset]}",
+                rel: :describedby,
+                type: :'application/csvm+json'
           headers 'Content-type' => type.to_s
           halt File.read "data/csv/#{params[:dataset]}.csv"
 
@@ -43,5 +39,19 @@ module CsvOnTheWeb
 
     # start the server if ruby file executed directly
     run! if app_file == $0
+
+    def determine_type
+      extensions = {
+        'csv' => 'text/csv'
+      }
+
+      type = request.accept.first.to_s
+
+      if params[:format]
+        type = extensions[params[:format]]
+      end
+
+      type
+    end
   end
 end
