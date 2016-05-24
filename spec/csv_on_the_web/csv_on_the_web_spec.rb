@@ -8,7 +8,7 @@ module CsvOnTheWeb
       get '/', nil, HTML_HEADERS
       expect(last_response).to be_ok
       expect(last_response.header['Content-type']).to match /text\/html/
-      expect(last_response.body).to match /Hello from CsvOnTheWeb/
+      expect(last_response.body).to match /How does CSV On The Web work\?/
     end
 
     it 'serves JSON' do
