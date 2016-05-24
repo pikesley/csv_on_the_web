@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 2.3.1
+deploy:
+  provider: heroku
+  api_key:
+    secure: E77pBx+BN6yQPX/fDhbWxzO4QizymMYh8suae/f0D9GJZr+BdvPi7JfrD0vAV/oK8xcHppjwv6fa4UFcrnWSqeXzfYnIyxQBs94Q41FZMYVkXMtmqgK95x63NmMwPOEAiksUR1/qupwA6BPEYCtd7u01s3NTam9mhhdAxqb1hkYYRnuo8y/Rrhj1VyXVvx+NDf4fzvGLJdLOl+2hgMlvAQzbJsMkGbcWmyaeXN4Jt8FJ2dYwjFasUzXwfTEzIGkrQdwkeVwmOMmcqj5RIhtUzH3YmhyevLQQ/X8LZC49ayZtrcgCBpvWqGk0iRZPS1AMHydCCpAm3YKA2xklJ0TfA2/sRFVLL3vwAswFGFg3RJbjXSS5W8feZRyTnj6OZVn6dEleQ2ciRND96YoinCzu4uus37eS8wsXX65sJ2qE6w9hRzTroEM8RnstRevB9SQVFe3meoudWMasC3tsB5SYO9K17vPGdXAyfoiN1gNMW9fciv555zSvFaHBgtAcA40ulYqWfEU8RFISCxApk/Up/gXrXQUpXoqoxhgTfqR3lDJbXtCPPBZ+k9yDBUBeaIXevGJ3jrwgOUL/c9uPVPezEg5www2/sbzykQCCvWJsSML4dATBuIRH0eD5WOG5ohQXKSc6bW/4X1ywGgjdX+2dDI+XP1DdlrSSP6ToGc+aUfE=
+  app: csv-on-the-web
+  on:
+    repo: pikesley/csv_on_the_web
