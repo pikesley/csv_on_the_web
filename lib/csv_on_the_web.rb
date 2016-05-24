@@ -43,10 +43,16 @@ module CsvOnTheWeb
       end
     end
 
-    get '/data/:dataset' do
-      request.accept.each do |type|
-        case type.to_s
+    get '/data/:dataset.?:format?' do
+      extensions = {
+        'csv' => 'text/csv'
+      }
+      type = request.accept.first.to_s
+      if params[:format]
+        type = extensions[params[:format]]
+      end
 
+      case type
         when 'text/csv'
           headers 'Content-type' => type.to_s
           halt File.read "data/csv/#{params[:dataset]}.csv"
@@ -54,7 +60,6 @@ module CsvOnTheWeb
         when 'application/csvm+json'
           headers 'Content-type' => type.to_s
           halt File.read "data/csv/#{params[:dataset]}.csv-metadata.json"
-        end
       end
     end
 

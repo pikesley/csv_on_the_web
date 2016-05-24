@@ -55,6 +55,20 @@ orange fizz,Lycopersicon esculentum,cordon
 """
         )
       end
+
+      it 'gets the CSV via extension' do
+        get '/data/tomatoes.csv'
+        expect(last_response).to be_ok
+        expect(last_response.body).to eq (
+        """common name,botanical name,type
+ildi,Solanum lycopersicum,cordon
+black cherry,Lycopersicon esculentum,cordon
+golden sunrise,Solanum lycopersicum,cordon
+sungold,Lycopersicon esculentum,cordon
+orange fizz,Lycopersicon esculentum,cordon
+"""
+        )
+      end
     end
 
     context 'CSVOTW metadata' do
@@ -79,6 +93,8 @@ orange fizz,Lycopersicon esculentum,cordon
           }
         )
       end
+
+      it 'gets the metadata headers'
     end
   end
 end
