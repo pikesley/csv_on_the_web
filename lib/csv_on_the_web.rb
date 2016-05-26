@@ -21,6 +21,11 @@ module CsvOnTheWeb
       halt erb :index, layout: :default
     end
 
+    get '/data/:dataset.csv-metadata.json' do
+      headers 'Content-type' => 'application/csvm+json'
+      halt get_json
+    end
+
     get '/data/:dataset.?:format?' do
       type = determine_type
       case type
@@ -33,7 +38,7 @@ module CsvOnTheWeb
 
         when 'application/csvm+json'
           headers 'Content-type' => type.to_s
-          halt File.read "data/csv/#{params[:dataset]}.csv-metadata.json"
+          halt get_json
       end
     end
 
@@ -52,6 +57,10 @@ module CsvOnTheWeb
       end
 
       type
+    end
+
+    def get_json
+      (YAML.load_file "data/csv/metadata/#{params[:dataset]}.csv-metadata.yaml").to_json
     end
   end
 end

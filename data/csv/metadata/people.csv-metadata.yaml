@@ -1,0 +1,10 @@
+---
+"@context": http://www.w3.org/ns/csvw
+url: people.csv
+dialect:
+  encoding: UTF-8
+tableSchema:
+  columns:
+  - titles: person
+  - titles: hat
+    name: hat
