@@ -50,6 +50,8 @@ Using [this hacked branch of csvlint.rb](https://github.com/theodi/csvlint.rb/tr
       }
     ]
 
+(we're `tail -1`-ing there because csv2json is throwing bogus-looking errors about `no_encoding`)
+
 ## Further steps
 
 * Add metadata so csv2json builds structured JSON at the client end
