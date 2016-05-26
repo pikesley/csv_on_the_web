@@ -61,7 +61,7 @@ orange fizz,Lycopersicon esculentum,cordon
     end
 
     context 'CSVOTW metadata' do
-      it 'serves the JSON' do
+      it 'serves the metadata JSON' do
         get '/data/planting', nil, { 'HTTP_ACCEPT' => 'application/csvm+json' }
         expect(last_response).to be_ok
         expect(last_response.header['Content-type']).to eq 'application/csvm+json'
@@ -78,6 +78,24 @@ orange fizz,Lycopersicon esculentum,cordon
                   "titles" => "tomato"
                 }
               ]
+            }
+          }
+        )
+      end
+
+      it 'serves the metadata JSON at the expected URL' do
+        get '/data/tomatoes.csv-metadata.json'
+        expect(last_response).to be_ok
+        expect(last_response.header['Content-type']).to eq 'application/csvm+json'
+        expect(JSON.parse last_response.body).to include (
+          {
+            "@context" => "http://www.w3.org/ns/csvw",
+            "schema:name" => "Tomato types",
+            "schema:description" => "Data about tomato types",
+            "schema:creator" => {
+              "schema:name" => "Sam",
+              "schema:url" => "http://sam.pikesley.org",
+              "@type" => "schema:Person"
             }
           }
         )
